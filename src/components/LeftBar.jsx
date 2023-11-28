@@ -54,7 +54,6 @@ const LeftBar = () => {
   // SEND FRIEND REQUEST
   const sendRequest = async (id)=>{
     const res = await sendFriendRequest(user?.token, id)
-    console.log(res)
     if(res?.success){
       getSuggested()
       setRequest()

@@ -173,7 +173,7 @@ const Profile = () => {
   const mySavedPosts = async ()=>{
     setTab(4)
     setIsFetching(true)
-    const res = await getSavedPosts(id ?? user?.token)
+    const res = await getSavedPosts(user?.token)
     if(res?.success){
       setSavedPosts(res?.data)
       setIsFetching(false)
@@ -188,8 +188,11 @@ const Profile = () => {
   }
 
   const handleSavePost = async (id) =>{
-    await SavedPosts(user?.token, id)
-    await handleUserPosts()
+    const res = await SavedPosts(user?.token, id)
+    if(res){
+      alert(res?.message)
+      await handleUserPosts()
+    }
   }
 
   const handlePostLike = async (url) =>{
@@ -321,14 +324,16 @@ const Profile = () => {
                         before:bg-blue before:rounded-lg before:absolute before:bottom-[-17px]
                         ` : "text-base"}`}
                         />
-                        <CustomButton
-                        label="Saved"
-                        onClick={mySavedPosts}
-                        styles={`text-ascent-2 relative ${tab === 4
-                        ? `text-blue before:content-[""] before:w-full before:h-1
-                        before:bg-blue before:rounded-lg before:absolute before:bottom-[-17px]
-                        ` : "text-base"}`}
-                        />
+                        {!id && (
+                          <CustomButton
+                          label="Saved"
+                          onClick={mySavedPosts}
+                          styles={`text-ascent-2 relative ${tab === 4
+                            ? `text-blue before:content-[""] before:w-full before:h-1
+                            before:bg-blue before:rounded-lg before:absolute before:bottom-[-17px]
+                            ` : "text-base"}`}
+                            />
+                        )}
                         <CustomButton
                         label="About"
                         onClick={()=>setTab(5)}

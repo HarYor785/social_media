@@ -127,6 +127,7 @@ const TopBar = () => {
                             right-0 top-10 flex items-start flex-col shadow-lg rounded-lg z-50'>
                                 <Link
                                 to={`/profile`} 
+                                onClick={()=>setMenuTab(false)}
                                 className='text-base text-ascent-3 hover:text-ascent-1 
                                 transition-all duration-300 ease-in-out'
                                 >
