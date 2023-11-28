@@ -96,7 +96,7 @@ const RigthBar = ({profile, setMobile,handleGetPost}) => {
   return (
     <>
       <div className='w-full md:relative absolute top-0 md:h-auto h-screen 
-      z-[999] md:py-0 md:block flex '>
+      z-[1000] md:py-0 md:block flex '>
         <div className='md:hidden w-full h-full absolute bg-[rgba(0,0,0,0.1)]
               top-0 right-0 z-[998]'
               onClick={()=>setMobile(false)}

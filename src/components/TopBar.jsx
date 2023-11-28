@@ -158,14 +158,15 @@ const TopBar = () => {
     
     {/* MOBILE SIDEBAR MENU */}
     {mobile && (
-        <motion.div 
+        <div 
         className='md:hidden z-[1000]'
         initial={{x: "-100%"}}
         animate={{x: 0}}
         exit={{x: "-100%"}}
-        transition={{duration: 0.5, ease: "easeInOut"}}>
+        transition={{duration: 0.5, ease: "easeInOut"}}
+        >
             <RigthBar setMobile={setMobile}/>
-        </motion.div>
+        </div>
     )}
     </>
   )

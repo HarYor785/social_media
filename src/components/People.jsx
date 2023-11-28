@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion';
 
 //ICON
 import { FaTimes } from "react-icons/fa";
@@ -15,13 +16,18 @@ const People = ({setShowSuggested,
     isLoading,
     user}) => {
   return (
-    <div className='w-full h-full absolute top-0 left-0 
+    <motion.div 
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    exit={{opacity: 0}}
+    transition={{duration: 0.5}}
+    className='w-full h-full absolute md:top-0 left-0 
     z-[1005] flex items-center justify-center '>
         <div className='relative flex flex-col py-4 w-full h-full pt-20 
         md:px-0 px-8'>
 
             <div className='w-full h-full absolute bg-[rgba(0,0,0,0.1)] 
-            top-0 left-0 bottom-0 right-0'
+            top-0 left-0 bottom-0 right-0 z-[1001]'
             onClick={()=>setShowSuggested(false)}
             />
 
@@ -90,7 +96,7 @@ const People = ({setShowSuggested,
                 </div>
             </div>
         </div>
-    </div>
+    </motion.div>
   )
 }
 
