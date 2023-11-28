@@ -2,15 +2,14 @@ import axios from "axios"
 import { setPosts } from "../redux/postSlice"
 
 
-const API_URL = "https://mernstack-socialmedia-qxk4.onrender.com"
-
-//"http://localhost:8000/api-v1"
+const API_URL = "https://mernstack-socialmedia-qxk4.onrender.com/api-v1"
 
 export const API = axios.create({
     baseURL: API_URL,
     responseType: "json"
 })
 
+//API REQUEST
 export const apiRequest = async ({url, method, data, token})=>{
     try {
         const request = await API(url,{
@@ -36,6 +35,7 @@ export const apiRequest = async ({url, method, data, token})=>{
     }
 }
 
+//FETCH USERINFO
 export const fetchUserInfo = async (token, id)=>{
     try {
         const newUrl = id === undefined ? "/user/get-profile" : `/user/get-profile/${id}`
@@ -57,6 +57,7 @@ export const fetchUserInfo = async (token, id)=>{
     }
 }
 
+//HANDLE FILE UPLOAD TO CLOUDINARY
 export const handleFileUpload = async (file, fileIsVideo = false)=>{
     try {
         const formData = new FormData()
@@ -83,6 +84,7 @@ export const handleFileUpload = async (file, fileIsVideo = false)=>{
     }
 }
 
+//GET SUGGESTED FRIENDS
 export const getSuggestedFriends = async (token)=>{
     try {
         const res = await apiRequest({
@@ -96,6 +98,7 @@ export const getSuggestedFriends = async (token)=>{
     }
 }
 
+//GET FRIEND REQUESTS
 export const getFriendRequests = async (token)=>{
     try {
         const res = await apiRequest({
@@ -109,6 +112,7 @@ export const getFriendRequests = async (token)=>{
     }
 }
 
+//SEND FRIEND REQUESTS
 export const sendFriendRequest = async (token, requestTo)=>{
     try {
         const res = await apiRequest({
@@ -124,6 +128,7 @@ export const sendFriendRequest = async (token, requestTo)=>{
     }
 }
 
+//DECLINE FRIEND REQUEST
 export const deleteFriendRequest = async (token, requestId)=>{
     try {
         const res = await apiRequest({
@@ -138,6 +143,7 @@ export const deleteFriendRequest = async (token, requestId)=>{
     }
 }
 
+//ACCEPT FRIEND REQUESTS
 export const acceptFriendRequest = async (token, requestId)=>{
     try {
         const res = await apiRequest({
@@ -153,6 +159,7 @@ export const acceptFriendRequest = async (token, requestId)=>{
     }
 }
 
+//DELETE FRIEND
 export const deleteFriend = async (token, id)=>{
     try {
         const res = await apiRequest({
@@ -167,6 +174,7 @@ export const deleteFriend = async (token, id)=>{
     }
 }
 
+//GET POSTS
 export const getPosts = async (token, dispatch, data, url)=>{
     try {
         const res = await apiRequest({
@@ -183,6 +191,7 @@ export const getPosts = async (token, dispatch, data, url)=>{
     }
 }
 
+//GET COMMENTS
 export const getComments = async (token, postId)=>{
     try {
         const res = apiRequest({
@@ -197,6 +206,7 @@ export const getComments = async (token, postId)=>{
     }
 }
 
+//LIKE POSTS
 export const likePost = async ({token, url})=>{
     try {
         const res = await apiRequest({
@@ -211,6 +221,7 @@ export const likePost = async ({token, url})=>{
     }
 }
 
+//DELETE POSTS
 export const deletePost = async (token, id)=>{
     try {
         if(window.confirm('Are you sure? This action cannot be undone.')){
@@ -227,6 +238,7 @@ export const deletePost = async (token, id)=>{
     }
 }
 
+//SAVE A POST
 export const SavedPosts = async (token, id)=>{
     try {
         const res = await apiRequest({
@@ -241,6 +253,7 @@ export const SavedPosts = async (token, id)=>{
     }
 }
 
+//FETCH SAVED POSTS
 export const getSavedPosts = async (token)=>{
     try {
         const res = await apiRequest({
@@ -255,6 +268,7 @@ export const getSavedPosts = async (token)=>{
     }
 }
 
+//GET PROFILE POSTS
 export const getUserPosts = async (token, userId)=>{
     try {
         const res = await apiRequest({
@@ -269,6 +283,7 @@ export const getUserPosts = async (token, userId)=>{
     }
 }
 
+//DELETE ACCOUNTS
 export const deleteAccount = async (token)=>{
     try {
         if(window.confirm(`Are you sure to delete your account?`)){

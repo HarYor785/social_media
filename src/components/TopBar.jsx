@@ -46,16 +46,16 @@ const TopBar = () => {
   return (
     <>
     <div
-    className='w-full fixed px-8 py-4 bg-secondary drop-shadow-sm z-[999]'>
+    className='w-full fixed md:px-8 px-3 py-4 bg-secondary drop-shadow-sm z-[999]'>
         <div className='flex items-center justify-between'>
             <Link 
             to="/"
             className='flex gap-4 items-center'>
                 <span className='bg-[#eff4fc] flex-items-center justify-center
                 p-2 rounded-lg'>
-                    <SiQuantconnect className='text-[#1877f2] text-2xl'/>
+                    <SiQuantconnect className='text-[#1877f2] md:text-2xl'/>
                 </span>
-                <h1 className='text-2xl font-bold text-ascent-1'>ConnectMe</h1>
+                <h1 className='md:text-2xl text-base font-bold text-ascent-1'>ConnectMe</h1>
             </Link>
             {/* SEARCH */}
             <form 

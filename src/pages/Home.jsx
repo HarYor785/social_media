@@ -164,8 +164,10 @@ useEffect(() => {
           <div 
           className='flex-1 w-full md:px-2 px-5 py-4 h-full 
           overflow-y-auto flex flex-col gap-3 items-center'>
-            {/* STORIES CARD */}
-            <Stories/>
+            
+                {/* STORIES CARD */}
+                <Stories/>
+
             {/* CREATE POST FORM */}
 
               <div className='w-full mt-3'>

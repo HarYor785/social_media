@@ -41,6 +41,7 @@ const Login = () => {
             }else{
                 setErrorMsg(true)
                 setMessage(res.message)
+                console.log(res)
             }
             setIsLoading(false)
         } catch (error) {

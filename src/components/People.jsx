@@ -16,7 +16,7 @@ const People = ({setShowSuggested,
     user}) => {
   return (
     <div className='w-full h-full absolute top-0 left-0 
-    z-[1000] flex items-center justify-center '>
+    z-[1005] flex items-center justify-center '>
         <div className='relative flex flex-col py-4 w-full h-full pt-20 
         md:px-0 px-8'>
 

@@ -22,7 +22,7 @@ const Acccount = () => {
   const {theme} = useSelector((state)=>state.theme)
   const [tab, setTab] = useState("login")
   return (
-    <div data-theme={theme} className='h-screen flex items-center 
+    <div data-theme={theme} className='md:h-screen h-full flex items-center 
     justify-center p-6 py-8 bg-bgColor'>
         <div className='h-full w-[800px] flex items-center justify-center 
         shadow-lg rounded-lg bg-primary overflow-hidden'>

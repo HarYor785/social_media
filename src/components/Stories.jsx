@@ -79,10 +79,6 @@ const Stories = () => {
     <div className='w-full flex items-center md:gap-2 gap-2 
     justify-start h-fit'>
         
-        {isLoading ? (<div className='h-36 flex items-center justify-center w-full'>
-            <Loader/>
-            </div>
-        ) : (
         <div className='md:w-28 md:h-36 w-24 h-28 flex relative 
         rounded-lg overflow-hidden'>
             <img 
@@ -106,7 +102,6 @@ const Stories = () => {
                 <span className="text-sm font-normal text-white">Add Story</span>
             </div>
         </div>
-        )}
 
         {isLoading ? (<div className='h-36 flex items-center justify-center w-full'>
                 <Loader/>
@@ -154,7 +149,7 @@ const Stories = () => {
                         p-6 gap-2 h-full'>
                             <img 
                             src={showStory} 
-                            className='w-full h-full rounded-lg object-cover'
+                            className='w-full h-full rounded-lg'
                             alt="" />
                         </div>
                     </div>

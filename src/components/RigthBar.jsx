@@ -158,6 +158,7 @@ const RigthBar = ({profile, setMobile,handleGetPost}) => {
               {/* HOME */}
               <Link
               onClick={handleGetPost}
+              to="/"
               className='w-full flex gap-4 px-1 py-2 items-center
               border-b-[1px] border-bgColor'
               >

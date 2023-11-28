@@ -6,8 +6,8 @@ import { Link, useParams } from 'react-router-dom'
 import moment from 'moment'
 
 
-import { FaRegEdit, FaBirthdayCake } from "react-icons/fa";
-import { CiMenuKebab, CiSearch, CiLocationOn } from "react-icons/ci";
+import { FaBirthdayCake } from "react-icons/fa";
+import { CiSearch, CiLocationOn } from "react-icons/ci";
 import { GrContactInfo } from "react-icons/gr";
 import { MdOutlineDateRange } from "react-icons/md";
 import { IoBriefcaseOutline } from "react-icons/io5";
@@ -34,6 +34,92 @@ import { SavedPosts,
   sendFriendRequest } from '../utils'
 import { updateProfile, userLogin } from '../redux/userSlice'
 
+const About = ({userData})=>{
+  return (
+    <div className='md:sticky md:top-0 md:mt-0 mt-4 w-full md:h-[600px] h-fit bg-secondary 
+    rounded-lg '>
+      <div className='flex flex-col gap-3 p-4'>
+        <h1 className='text-blue text-lg font-bold'>About</h1>
+        <hr className='border-[1px] border-[#66666666]'/>
+        <div className='flex flex-col items-start gap-5 mt-4'>
+          <span className='w-full flex items-center gap-4'>
+            <span className='text-2xl bg-ascent-2 p-2
+            flex items-center justify-center rounded-full'>
+              <GrContactInfo className='text-[#e9e9e9]'/>
+            </span>
+            <span className='text-sm text-ascent-2 text-justify'>
+              {userData?.bio}
+            </span>
+          </span>
+          <span className='w-full flex items-center gap-4'>
+            <span className='text-2xl bg-ascent-2 p-2 
+            flex items-center justify-center rounded-full'>
+              <FaBirthdayCake className='text-[#e9e9e9]'/>
+            </span>
+            <span className='text-sm text-ascent-2'>
+              <b>DOB:</b> {moment(userData?.dateOfBirth).calendar()}
+            </span>
+          </span>
+          <span className='w-full flex items-center gap-4'>
+            <span className='text-2xl bg-ascent-2 p-2 
+            flex items-center justify-center rounded-full'>
+              <MdOutlineDateRange className='text-[#e9e9e9]'/>
+            </span>
+            <span className='text-sm text-ascent-2'>
+              <b>Joined:</b> {moment(userData?.createdAt).fromNow()}
+            </span>
+          </span>
+          <span className='w-full flex items-center gap-4'>
+            <span className='text-2xl bg-ascent-2 p-2 
+            flex items-center justify-center rounded-full'>
+              <CiLocationOn className='text-[#e9e9e9]'/>
+            </span>
+            <span className='text-sm text-ascent-2'>
+              {userData?.location}
+            </span>
+          </span>
+          <span className='w-full flex items-center gap-4'>
+            <span className='text-2xl bg-ascent-2 p-2 
+            flex items-center justify-center rounded-full'>
+              <IoBriefcaseOutline className='text-[#e9e9e9]'/>
+            </span>
+            <span className='text-sm text-ascent-2'>
+              {userData?.profession}
+            </span>
+          </span>
+          <span className='w-full flex items-center gap-4'>
+            <span className='text-2xl bg-ascent-2 p-2 
+            flex items-center justify-center rounded-full'>
+              <FiPhone className='text-[#e9e9e9]'/>
+            </span>
+            <Link className='text-sm text-blue'>
+              {userData?.mobile}
+            </Link>
+          </span>
+          <span className='w-full flex items-center gap-4'>
+            <span className='text-2xl bg-ascent-2 p-2 
+            flex items-center justify-center rounded-full'>
+              <MdOutlineEmail className='text-[#e9e9e9]'/>
+            </span>
+            <Link className='text-sm text-blue'>
+              {userData?.email}
+            </Link>
+          </span>
+          <span className='w-full flex items-center gap-4'>
+            <span className='text-2xl bg-ascent-2 p-2 
+            flex items-center justify-center rounded-full'>
+              <SiTodoist className='text-[#e9e9e9]'/>
+            </span>
+            <span className='text-sm text-ascent-2'>
+              <b>Hobbies:</b> {userData?.hobbies}
+            </span>
+          </span>
+        </div>
+        
+      </div>
+    </div>
+  )
+}
 
 const Profile = () => {
   const {id} = useParams()
@@ -102,9 +188,8 @@ const Profile = () => {
   }
 
   const handleSavePost = async (id) =>{
-    const res = await SavedPosts(user?.token, id)
+    await SavedPosts(user?.token, id)
     await handleUserPosts()
-    window.alert(res?.message)
   }
 
   const handlePostLike = async (url) =>{
@@ -207,8 +292,8 @@ const Profile = () => {
                   
                   {/* TABS BUTTONS */}
                   <div className='md:px-6'>
-                    <div className='w-full flex justify-between items-center py-3 px-3
-                    border-t-[1px] border-ascent-3 gap-4'>
+                    <div className='w-full flex md:justify-between items-center py-3 px-3
+                    md:px-0 border-t-[1px] border-[#66666666] gap-4'>
                       <div className='md:w-full flex justify-between md:gap-0 gap-4'>
                         <CustomButton
                         label="Posts"
@@ -244,10 +329,18 @@ const Profile = () => {
                         before:bg-blue before:rounded-lg before:absolute before:bottom-[-17px]
                         ` : "text-base"}`}
                         />
+                        <CustomButton
+                        label="About"
+                        onClick={()=>setTab(5)}
+                        styles={`text-ascent-2 relative ${tab === 5
+                        ? `text-blue before:content-[""] before:w-full before:h-1
+                        before:bg-blue before:rounded-lg before:absolute before:bottom-[-17px]
+                        ` : "text-base"} md:hidden`}
+                        />
                       </div>
 
                       {/* SEARCH */}
-                      <div className='md:w-full flex items-center justify-end gap-2'>
+                      <div className='md:w-full hidden md:flex items-center justify-end gap-2'>
                         {/* SEARCH */}
                         <div className='hidden w-[200px] md:flex items-center border 
                         border-ascent-2 h-[35px] bg-secondary rounded-lg overflow-hidden'>
@@ -263,18 +356,9 @@ const Profile = () => {
                             placeholder='Search'
                             />
                         </div>
-                        <button 
-                        onClick={()=>dispatch(updateProfile(!edit))}
-                        className='flex items-center gap-1 px-3 py-2
-                        text-white bg-blue text-sm rounded-md'>
-                          <FaRegEdit size={17}/>
-                        </button>
-                        <button 
-                        className='flex items-center gap-1 px-3 py-2
-                        text-white bg-[#8f8f8f] text-sm rounded-md'>
-                          <CiMenuKebab/>
-                        </button>
+
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -302,6 +386,7 @@ const Profile = () => {
                         </div>
                       )
                     )}
+
                     {tab === 2 && (
                       userData?.friends?.length > 0 ?(
                         userData?.friends?.map((friend, index)=>(
@@ -322,110 +407,31 @@ const Profile = () => {
                     {tab === 3 && (<Photos photos={[...getPhotos, userData]}/>)}
 
                     {tab === 4 && ( 
-                      userData?._id === user?._id && savedPosts?.length > 0 ? ( 
-                        isFetching 
-                        ? <Loader/> 
-                        : savedPosts?.map((post, index)=>( <PostCard 
-                          key={index}
+                      isFetching ? <Loader/> : userData?._id === user?._id 
+                      && savedPosts?.length > 0 ? 
+                          savedPosts?.map((post, index)=>( <PostCard 
+                            key={index}
                             post={post}
                             postLike={handlePostLike}
                             deletePosts={handleDeletePost}
                             savePost={handleSavePost}
-                          />
-                          ))
-                        ):(
+                            />)
+                      ):(
                           <div className='p-2 flex justify-center'>
                             <p className='text-base text-ascent-2'>
                               {id ? "Hidden" : "You have no saved posts"}
                             </p>
                           </div>
                         )
-                    )}
+                      )
+                    }
+                    
+                    {tab === 5 && (<About userData={userData}/>)}
                   </div>
                   {/* ABOUT */}
                   <div className='w-1/3 hidden md:flex h-full py-6 relative'>
-                    <div className='sticky top-0 w-full h-[600px] bg-secondary 
-                    rounded-lg'>
-                      <div className='flex flex-col gap-3 p-4'>
-                        <h1 className='text-blue text-lg font-bold'>About</h1>
-                        <div className='flex flex-col items-start gap-5 mt-4'>
-                          <span className='w-full flex items-center gap-4'>
-                            <span className='text-2xl bg-ascent-2 p-2
-                            flex items-center justify-center rounded-full'>
-                              <GrContactInfo className='text-[#e9e9e9]'/>
-                            </span>
-                            <span className='text-sm text-ascent-2 text-justify'>
-                              {userData?.bio}
-                            </span>
-                          </span>
-                          <span className='w-full flex items-center gap-4'>
-                            <span className='text-2xl bg-ascent-2 p-2 
-                            flex items-center justify-center rounded-full'>
-                              <FaBirthdayCake className='text-[#e9e9e9]'/>
-                            </span>
-                            <span className='text-sm text-ascent-2'>
-                              <b>DOB:</b> {moment(userData?.dateOfBirth).calendar()}
-                            </span>
-                          </span>
-                          <span className='w-full flex items-center gap-4'>
-                            <span className='text-2xl bg-ascent-2 p-2 
-                            flex items-center justify-center rounded-full'>
-                              <MdOutlineDateRange className='text-[#e9e9e9]'/>
-                            </span>
-                            <span className='text-sm text-ascent-2'>
-                              <b>Joined:</b> {moment(userData?.createdAt).fromNow()}
-                            </span>
-                          </span>
-                          <span className='w-full flex items-center gap-4'>
-                            <span className='text-2xl bg-ascent-2 p-2 
-                            flex items-center justify-center rounded-full'>
-                              <CiLocationOn className='text-[#e9e9e9]'/>
-                            </span>
-                            <span className='text-sm text-ascent-2'>
-                              {userData?.location}
-                            </span>
-                          </span>
-                          <span className='w-full flex items-center gap-4'>
-                            <span className='text-2xl bg-ascent-2 p-2 
-                            flex items-center justify-center rounded-full'>
-                              <IoBriefcaseOutline className='text-[#e9e9e9]'/>
-                            </span>
-                            <span className='text-sm text-ascent-2'>
-                              {userData?.profession}
-                            </span>
-                          </span>
-                          <span className='w-full flex items-center gap-4'>
-                            <span className='text-2xl bg-ascent-2 p-2 
-                            flex items-center justify-center rounded-full'>
-                              <FiPhone className='text-[#e9e9e9]'/>
-                            </span>
-                            <Link className='text-sm text-blue'>
-                              {userData?.mobile}
-                            </Link>
-                          </span>
-                          <span className='w-full flex items-center gap-4'>
-                            <span className='text-2xl bg-ascent-2 p-2 
-                            flex items-center justify-center rounded-full'>
-                              <MdOutlineEmail className='text-[#e9e9e9]'/>
-                            </span>
-                            <Link className='text-sm text-blue'>
-                              {userData?.email}
-                            </Link>
-                          </span>
-                          <span className='w-full flex items-center gap-4'>
-                            <span className='text-2xl bg-ascent-2 p-2 
-                            flex items-center justify-center rounded-full'>
-                              <SiTodoist className='text-[#e9e9e9]'/>
-                            </span>
-                            <span className='text-sm text-ascent-2'>
-                              <b>Hobbies:</b> {userData?.hobbies}
-                            </span>
-                          </span>
-                        </div>
-                        
-                      </div>
-                    </div>
-                  </div>
+                    <About userData={userData}/>
+                  </div> 
 
                 </div>
 

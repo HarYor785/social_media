@@ -116,7 +116,7 @@ const EditProfile = ({updated}) => {
 
   return (
     <div className='w-full h-full absolute top-0 left-0 
-    z-[998] flex items-center justify-center '>
+    z-[1005] flex items-center justify-center'>
         <div className='relative flex flex-col py-4 w-full h-full pt-20'>
 
             <div className='w-full h-full absolute bg-[rgba(0,0,0,0.1)] 
