@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import {motion} from "framer-motion"
 
 //ICONS
 import { SiQuantconnect } from "react-icons/si";
@@ -21,12 +20,14 @@ import { getPosts } from '../utils';
 //COMPONENTS
 import RigthBar from './RigthBar';
 import { noProfile } from '../assets';
+import PostForm from './PostForm';
 
-const TopBar = () => {
+const TopBar = ({handleGetPost}) => {
     const {theme} = useSelector((state) => state.theme)
     const {user} = useSelector((state) => state.user)
     const dispatch = useDispatch()
     const [menuTab, setMenuTab] = useState(false) 
+    const [postTab, setPostTab] = useState(false) 
     const [mobile, setMobile] = useState(false) 
     const {
         register,
@@ -105,7 +106,9 @@ const TopBar = () => {
                     items-center justify-center'>5</span>
                 </button>
                 {/* CREATE POST BUTTON */}
-                <button className='bg-[#1877f2] hidden md:flex items-center justify-center
+                <button 
+                onClick={()=>setPostTab(!postTab)}
+                className='bg-[#1877f2] hidden md:flex items-center justify-center
                 p-2 px-2 rounded-lg gap-1 text-white font-semibold'>
                     <FaRegPlusSquare/>
                     <span className='text-sm'>Create</span>
@@ -167,6 +170,25 @@ const TopBar = () => {
         transition={{duration: 0.5, ease: "easeInOut"}}
         >
             <RigthBar setMobile={setMobile}/>
+        </div>
+    )}
+
+    {postTab && (
+        <div className='w-full h-full absolute top-0 left-0 
+        z-[1005] flex items-center justify-center'>
+            <div className='w-full h-full absolute bg-[rgba(0,0,0,0.1)] 
+            top-0 left-0 bottom-0 right-0 z-[1001]'
+            onClick={()=>setPostTab(false)}
+            />
+            
+            <div className='relative flex flex-col py-4 w-full h-full md:px-0 px-10'>
+
+                <div className='flex md:w-1/2 w-full bg-secondary p-4 rounded-lg
+                m-auto items-center justify-center z-[1003]'>
+                    <PostForm handleGetPost={handleGetPost}/>
+                </div>
+                
+            </div>
         </div>
     )}
     </>
