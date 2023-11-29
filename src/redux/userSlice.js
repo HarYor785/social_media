@@ -20,6 +20,9 @@ const userSlice = createSlice({
         },
         updateProfile(state, action){
             state.edit = action.payload
+        },
+        requestTab(state, action){
+            state.tab = action.payload
         }
     }
 })
@@ -44,4 +47,8 @@ export const updateProfile = (val) =>{
     }
 }
 
-export const toggleTab = (val) =>{}
+export const toggleRequestTab = (val) =>{
+    return (dispatch, getState)=>{
+        dispatch(userSlice.actions.requestTab(val))
+    }
+}

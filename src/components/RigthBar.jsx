@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { motion } from 'framer-motion';
 
 //ICONS
 import { GoHome } from "react-icons/go";
@@ -95,7 +96,12 @@ const RigthBar = ({profile, setMobile,handleGetPost}) => {
 
   return (
     <>
-      <div className='w-full md:relative absolute top-0 md:h-auto h-screen 
+      <motion.div 
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0}}
+      transition={{duration: 0.5}}
+      className='w-full md:relative absolute top-0 md:h-auto h-screen 
       z-[1000] md:py-0 md:block flex '>
         <div className='md:hidden w-full h-full absolute bg-[rgba(0,0,0,0.1)]
               top-0 right-0 z-[998]'
@@ -280,7 +286,7 @@ const RigthBar = ({profile, setMobile,handleGetPost}) => {
             
         </div>
 
-      </div>
+      </motion.div>
         {/* PEOPLE */}
         {showSuggested && (
           <People

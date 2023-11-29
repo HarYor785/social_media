@@ -34,6 +34,7 @@ import { SavedPosts,
   sendFriendRequest } from '../utils'
 import { updateProfile, userLogin } from '../redux/userSlice'
 
+// ABOUT CARD
 const About = ({userData})=>{
   return (
     <div className='md:sticky md:top-0 md:mt-0 mt-4 w-full md:h-[600px] h-fit bg-secondary 

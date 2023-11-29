@@ -14,7 +14,7 @@ import { RiMenu3Fill } from "react-icons/ri";
 
 //UTILLS
 import {SetTheme} from "../redux/theme"
-import {userLogout } from '../redux/userSlice';
+import {toggleRequestTab, userLogout } from '../redux/userSlice';
 import { getPosts } from '../utils';
 
 //COMPONENTS
@@ -22,7 +22,7 @@ import RigthBar from './RigthBar';
 import { noProfile } from '../assets';
 import PostForm from './PostForm';
 
-const TopBar = ({handleGetPost}) => {
+const TopBar = ({handleGetPost,request}) => {
     const {theme} = useSelector((state) => state.theme)
     const {user} = useSelector((state) => state.user)
     const dispatch = useDispatch()
@@ -82,12 +82,13 @@ const TopBar = ({handleGetPost}) => {
             <div className='flex items-center gap-4'>
                 {/* NOTIFICATION BUTTON */}
                 <button
+                onClick={()=>dispatch(toggleRequestTab(true))}
                 className='text-2xl text-ascent-2 relative'
                 >
                     <IoMdNotifications/>
                     <span className='absolute bottom-3 right-0 bg-[#f64949fe]
                     text-white rounded-full text-xs h-[15px] w-[15px] flex
-                    items-center justify-center'>1</span>
+                    items-center justify-center'>{request?.length}</span>
                 </button>
                 {/* TOGGLE THEME BUTTON */}
                 <button
@@ -103,7 +104,7 @@ const TopBar = ({handleGetPost}) => {
                     <BiSolidMessageDetail/>
                     <span className='absolute bottom-3 right-0 bg-[#f64949fe]
                     text-white rounded-full text-xs h-[15px] w-[15px] flex
-                    items-center justify-center'>5</span>
+                    items-center justify-center'>0</span>
                 </button>
                 {/* CREATE POST BUTTON */}
                 <button 
@@ -151,7 +152,7 @@ const TopBar = ({handleGetPost}) => {
                 {/* MOBILE MENU BUTTON BUTTON */}
                 <button
                 onClick={()=>setMobile(!mobile)}
-                className='md:hidden text-2xl text-ascent-2 relative'
+                className='md:hidden text-2xl text-ascent-1 relative'
                 >
                     <RiMenu3Fill/>
                 </button>
@@ -173,6 +174,7 @@ const TopBar = ({handleGetPost}) => {
         </div>
     )}
 
+    {/* CREATE POST FORM */}
     {postTab && (
         <div className='w-full h-full absolute top-0 left-0 
         z-[1005] flex items-center justify-center'>
@@ -187,7 +189,7 @@ const TopBar = ({handleGetPost}) => {
                 m-auto items-center justify-center z-[1003]'>
                     <PostForm handleGetPost={handleGetPost}/>
                 </div>
-                
+
             </div>
         </div>
     )}
