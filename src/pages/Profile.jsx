@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import moment from 'moment'
 
-
-import { FaBirthdayCake } from "react-icons/fa";
+//ICONS
+import { FaBirthdayCake, FaRegUser } from "react-icons/fa";
 import { CiSearch, CiLocationOn } from "react-icons/ci";
 import { GrContactInfo } from "react-icons/gr";
 import { MdOutlineDateRange } from "react-icons/md";
@@ -49,6 +49,15 @@ const About = ({userData})=>{
             </span>
             <span className='text-sm text-ascent-2 text-justify'>
               {userData?.bio}
+            </span>
+          </span>
+          <span className='w-full flex items-center gap-4'>
+            <span className='text-2xl bg-ascent-2 p-2 
+            flex items-center justify-center rounded-full'>
+              <FaRegUser className='text-[#e9e9e9]'/>
+            </span>
+            <span className='text-sm text-ascent-2'>
+              {userData?.gender}
             </span>
           </span>
           <span className='w-full flex items-center gap-4'>

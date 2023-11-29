@@ -312,7 +312,7 @@ const PostCard = ({post,key, postLike, deletePosts, hidePost, savePost}) => {
                         )}/>
                         {menuTab === post?._id && (
                         <div className='absolute w-[150px] h-fit py-2 gap-2 px-4 bg-primary 
-                        right-0 flex items-start flex-col shadow-lg rounded-lg'>
+                        right-0 flex items-start flex-col shadow-lg rounded-lg z-[999]'>
                             <button 
                             onClick={()=>{handleSavePost(post?._id)}}
                             className='text-base text-ascent-3 hover:text-ascent-1 

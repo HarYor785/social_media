@@ -72,7 +72,7 @@ const EditProfile = ({updated}) => {
             const profilePic = uploadImage && (await handleFileUpload(uploadImage))
             const coverPic = uploadCover && (await handleFileUpload(uploadCover))
             const {firstName,lastName,userName,dateOfBirth,
-                    email, bio, profession, location, mobile,hobbies} = data
+                    email, bio, gender, profession, location, mobile,hobbies} = data
             
             const res = await apiRequest({
                 url: "/user/update-profile",
@@ -84,6 +84,7 @@ const EditProfile = ({updated}) => {
                     dateOfBirth: dateOfBirth ? dateOfBirth : user?.dateOfBirth,
                     email,
                     bio,
+                    gender,
                     mobile,
                     profession,
                     location,
@@ -172,6 +173,7 @@ const EditProfile = ({updated}) => {
                             error={errors?.lastName ? errors?.lastName.message : ""}
                             />
                         </div>
+
                         {/* USERNAME && DATEOFBIRTH */}
                         <div className='w-full flex items-center gap-2'>
                             <TextField
@@ -226,19 +228,46 @@ const EditProfile = ({updated}) => {
                             </div>
                         </div>
                         
-                        {/* EMAIL && MOBILE */}
+                        {/* EMAIL */}
                         <div className='w-full flex items-center gap-2'>
                             <TextField
-                            label="Email"
-                            placeholder="Enter Email"
-                            name="email"
-                            type="email"
-                            styles="rounded-lg w-full"
-                            register={register("email",{
-                                required: "This Field is required"
-                            })}
-                            error={errors?.email ? errors?.email.message : ""}
+                                label="Email"
+                                placeholder="Enter Email"
+                                name="email"
+                                type="email"
+                                styles="rounded-lg w-full"
+                                register={register("email",{
+                                    required: "This Field is required"
+                                })}
+                                error={errors?.email ? errors?.email.message : ""}
                             />
+                        </div>
+
+                        {/* GENDER && MOBILE */}
+                        <div className='w-full flex items-center gap-2'>
+                            <div className='w-full flex flex-col'>
+                                <label 
+                                className='text-sm text-ascent-2 mb-2'
+                                htmlFor="gender">Gender</label>
+                                <select 
+                                className='w-full outline-none border 
+                                border-[#969696] px-3 py-1.5 mt-2 rounded-lg 
+                                bg-secondary text-ascent-2'
+                                name="gender" id="gender"
+                                {...register("gender",{
+                                    required: "This field is required",
+                                })}>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                {errors?.gender && (
+                                    <span className='text-xs mt-2 text-[#f64949f3]'>
+                                        {errors?.gender.message}
+                                    </span>
+                                )}
+                            </div>
+
                             <TextField
                             label="Mobile"
                             placeholder="Enter Mobile"
