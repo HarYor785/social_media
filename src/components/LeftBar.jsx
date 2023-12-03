@@ -13,9 +13,8 @@ import {
   sendFriendRequest } from '../utils'
 
 
-const LeftBar = ({request,getRequest, acceptRequest, deleteRequest}) => {
+const LeftBar = ({request,setRequestSent,getRequest, acceptRequest, deleteRequest}) => {
   const {user, tab} = useSelector((state)=> state.user)
-  const dispatch = useDispatch()
   const [suggested, setSuggested] = useState()
   
   const [isLoading, setIsLoading] = useState(false)
@@ -40,6 +39,7 @@ const LeftBar = ({request,getRequest, acceptRequest, deleteRequest}) => {
   const sendRequest = async (id)=>{
     const res = await sendFriendRequest(user?.token, id)
     if(res?.success){
+      setRequestSent({...res?.data, id})
       getSuggested()
       getRequest()
       window.alert(res?.message)

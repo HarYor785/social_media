@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { motion } from 'framer-motion';
+import {io} from "socket.io-client"
 
 //ICONS
 import { BsCameraVideo, 
@@ -93,7 +94,7 @@ const PostForm = ({handleGetPost}) => {
             handleGetPost();
 
             setTimeout(() => {
-            setMessage("");
+                setMessage("");
             }, 2000);
         } else {
             setErrMsg(true);
@@ -103,8 +104,10 @@ const PostForm = ({handleGetPost}) => {
         setIsLoading(false);
         } catch (error) {
             console.log(error);
+            setIsLoading(false)
         }
     };
+    
   return (
     <motion.div 
     initial={{opacity: 0}}

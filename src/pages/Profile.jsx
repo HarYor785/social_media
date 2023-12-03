@@ -143,6 +143,7 @@ const Profile = () => {
   const [userPosts, setUserPosts] = useState([])
   const [isFetching, setIsFetching] = useState(false)
 
+  // Get user profile
   const getUser = async ()=>{
     setIsLoading(true)
     const res = await fetchUserInfo(user?.token, id)
@@ -180,6 +181,7 @@ const Profile = () => {
       }
   }
 
+  //Get saved posts
   const mySavedPosts = async ()=>{
     setTab(4)
     setIsFetching(true)
@@ -191,12 +193,14 @@ const Profile = () => {
   }
 
 
+  // Get user profile post
   const handleUserPosts = async ()=>{
     const res = await getUserPosts(user?.token, id ?? user?._id)
     setUserPosts(res?.data)
 
   }
 
+  // Save post
   const handleSavePost = async (id) =>{
     const res = await SavedPosts(user?.token, id)
     if(res){
@@ -205,6 +209,7 @@ const Profile = () => {
     }
   }
 
+  // Like post
   const handlePostLike = async (url) =>{
     await likePost({url: url, token: user?.token})
     await handleUserPosts()
@@ -212,11 +217,13 @@ const Profile = () => {
     setSavedPosts(res?.data)
   }
 
+  // Delete post
   const handleDeletePost = async (id)=>{
     await deletePost(user?.token, id)
     await handleUserPosts()
   }
 
+  // Get user photos
   const getPhotos = userPosts?.map((file)=>file.file)
 
   useEffect(()=>{
@@ -404,13 +411,11 @@ const Profile = () => {
 
                     {tab === 2 && (
                       userData?.friends?.length > 0 ?(
-                        userData?.friends?.map((friend, index)=>(
                           <FriendsCard 
-                          key={index}
-                          friend={friend} 
+                          friends={userData?.friends} 
                           getUser={getUser}
                           />
-                        ))):(
+                        ):(
                           <div className='p-2 flex justify-center'>
                             <p className='text-base text-ascent-2'>
                               You have no friends

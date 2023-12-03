@@ -1,5 +1,6 @@
 import CustomButton from "./CustomButton"
 import {Link} from "react-router-dom"
+import {noProfile} from "../assets"
 
 const FriendRequestCard = ({req, acceptRequest,deleteRequest, key})=>{
     return (

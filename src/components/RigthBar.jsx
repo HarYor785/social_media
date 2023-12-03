@@ -26,7 +26,7 @@ import { deleteAccount,
   getSuggestedFriends, 
   sendFriendRequest } from '../utils';
 
-const RigthBar = ({profile, setMobile,handleGetPost}) => {
+const RigthBar = ({profile, setMobile,handleGetPost,setRequestSent,getRequest}) => {
   
   const [menuTab, setMenuTab] = useState(false)
   const [showSuggested, setShowSuggested] = useState(false)
@@ -64,6 +64,8 @@ const RigthBar = ({profile, setMobile,handleGetPost}) => {
   const sendRequest = async (id)=>{
     const res = await sendFriendRequest(user?.token, id)
     if(res?.success){
+      setRequestSent({...res?.data, id})
+      getRequest()
       getSuggested()
       window.alert(res?.message)
     }else{

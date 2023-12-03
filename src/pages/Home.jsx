@@ -1,6 +1,9 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect,useRef,useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
+import {io} from "socket.io-client"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 //REDUX 
 import { setPosts } from '../redux/postSlice'
@@ -25,15 +28,49 @@ import { SavedPosts,
   deletePost, 
   getFriendRequests, 
   getPosts, 
-  likePost } from '../utils'
+  likePost, 
+  } from '../utils'
 
 const Home = () => {
   // Retrieve data from Redux state
   const { theme } = useSelector((state) => state.theme);
   const { user, tab } = useSelector((state) => state.user);
   const { posts } = useSelector((state) => state.posts);
-  const [request, setRequest] = useState()
+  const [request, setRequest] = useState([])
+  const [requestSent, setRequestSent] = useState([])
+  const [notifications, setNotifications] = useState([])
   const dispatch = useDispatch();
+  const socket = useRef()
+
+  // Connection to socket.io to get online users
+  useEffect(()=>{
+    socket.current = io("ws://localhost:8800")
+    socket.current.emit("new-user-add", user?._id)
+    socket.current.on("get-users",(users)=>{
+      console.log("")
+    })
+
+    // Receive message on homepage
+    socket.current.on("receive-message", (data)=>{
+        setNotifications([data])
+        toast.success(`You have new message`, {
+            autoClose: 5000
+        })
+    })
+
+  },[])
+
+  // Send friend request with socket.io
+  useEffect(()=>{
+    socket.current.emit("friend-request", requestSent)
+  },[requestSent])
+
+  // Recieve friend request with socket.io
+  useEffect(()=>{
+    socket.current.on("new-request", (data)=>{
+      getRequest()
+    })
+  },[])
 
   // Function to get posts
   const handleGetPost = async () => {
@@ -69,7 +106,6 @@ const Home = () => {
   const getRequest = async ()=>{
     try {
       const res = await getFriendRequests(user?.token)
-      console.log(res)
       if(res?.success){
         setRequest(res?.data)
       }
@@ -118,13 +154,15 @@ const Home = () => {
 
         <div data-theme={theme} className='relative flex flex-col w-full 
         bg-bgColor h-screen overflow-hidden pb-20'>
-          <TopBar handleGetPost={handleGetPost} request={request}/>
+          <TopBar handleGetPost={handleGetPost} 
+          request={request}/>
           <div className='h-full w-full flex mt-[5rem] gap-2 pb-3'>
 
             {/* RIGTH */}
             <div className='hidden md:flex w-1/3 lg:w-1/4 px-4 py-4 h-full 
             overflow-y-auto border-r-[1px] border-r-[#66666666]'>
-              <RigthBar profile={false} handleGetPost={handleGetPost}/>
+              <RigthBar profile={false} handleGetPost={handleGetPost} 
+              setRequestSent={setRequestSent} getRequest={getRequest}/>
             </div>
 
             {/* CENTER */}
@@ -164,6 +202,7 @@ const Home = () => {
             <div className='hidden md:flex w-1/4 px-2 py-4 h-full 
             overflow-y-auto border-l-[1px] border-l-[#66666666]'>
               <LeftBar 
+              setRequestSent={setRequestSent}
               request={request} 
               getRequest={getRequest}
               deleteRequest={deleteRequest}
@@ -238,6 +277,8 @@ const Home = () => {
                 </motion.div>
             )}
 
+            {/* ToastContainer for notifications */}
+            <ToastContainer position="bottom-right"/>
         </div>
   )
 }

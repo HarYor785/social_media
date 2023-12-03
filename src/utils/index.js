@@ -2,7 +2,9 @@ import axios from "axios"
 import { setPosts } from "../redux/postSlice"
 
 
-const API_URL = "https://mernstack-socialmedia-qxk4.onrender.com/api-v1"
+const API_URL = "http://localhost:8000/api-v1"
+
+//https://mernstack-socialmedia-qxk4.onrender.com/api-v1"
 
 //http://localhost:8000/api-v1
 
@@ -297,6 +299,117 @@ export const deleteAccount = async (token)=>{
 
             return res
         }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//GET CHATS
+export const getChats = async (token, userId)=>{
+    try {
+        const res = await apiRequest({
+            url: `/chat/${userId}`,
+            token: token,
+            method: "GET"
+        })
+        return res
+    }catch(error){
+        console.log(error)
+    }
+}
+
+//CREATE MESSAGE
+
+export const createChats = async (token, senderId, receiverId)=>{
+    try {
+        const res = await apiRequest({
+            url: `/chat`,
+            token: token,
+            method: "POST",
+            data:{
+                senderId,
+                receiverId
+            }
+        })
+        return res
+    }catch(error){
+        console.log(error)
+    }
+}
+
+//SEARCH CONVERSATION
+export const findConversation = async (token, firstId, secondId)=>{
+    try {
+        const res = await apiRequest({
+            url: `/chat/find/${firstId}/${secondId}`,
+            token: token,
+            method: "GET"
+        })
+        return res
+    }catch(error){
+        console.log(error)
+    }
+}
+
+//GET MESSAGES
+export const getMessages = async (token, chatId)=>{
+    try {
+        const res = await apiRequest({
+            url: `/message/${chatId}`,
+            token: token,
+            method: "GET"
+        })
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//ADD MESSAGE
+export const addMessage = async (token, message)=>{
+    try {
+        const res = await apiRequest({
+            url: "/message",
+            data: message,
+            method: "POST",
+            token: token
+        })
+
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//MARK MESSAGE AS READ
+export const markAsRead = async (token, messageId,)=>{
+    try {
+        const res = await apiRequest({
+            url: "/message/read",
+            data:{
+                messageId: messageId,
+                status: "read"
+            },
+            method: "POST",
+            token: token
+        })
+
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//FETCH UNREAD MESSAGES
+export const unreadMessages = async (token)=>{
+    try {
+        const res = await apiRequest({
+            url: "/message/unread",
+            method: "GET",
+            token: token
+        })
+
+        return res
     } catch (error) {
         console.log(error)
     }

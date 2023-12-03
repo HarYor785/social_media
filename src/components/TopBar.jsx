@@ -52,7 +52,7 @@ const TopBar = ({handleGetPost,request}) => {
             <Link 
             to="/"
             className='flex gap-4 items-center'>
-                <span className='bg-[#eff4fc] flex-items-center justify-center
+                <span className='bg-[#eff4fc] flex items-center justify-center
                 p-2 rounded-lg'>
                     <SiQuantconnect className='text-[#1877f2] md:text-2xl'/>
                 </span>
@@ -86,9 +86,11 @@ const TopBar = ({handleGetPost,request}) => {
                 className='text-2xl text-ascent-2 relative'
                 >
                     <IoMdNotifications/>
-                    <span className='absolute bottom-3 right-0 bg-[#f64949fe]
-                    text-white rounded-full text-xs h-[15px] w-[15px] flex
-                    items-center justify-center'>{request?.length}</span>
+                    {request?.length > 0 && (
+                        <span className='absolute bottom-3 right-0 bg-[#f64949fe]
+                        text-white rounded-full text-xs h-[15px] w-[15px] flex
+                        items-center justify-center'>{request?.length}</span>
+                    )}
                 </button>
                 {/* TOGGLE THEME BUTTON */}
                 <button
@@ -98,14 +100,17 @@ const TopBar = ({handleGetPost,request}) => {
                     {theme === "light" ? <FaRegMoon/> : <FiSun className='text-yellow-500'/>}
                 </button>
                 {/* MESSAGE BUTTON */}
-                <button
+                <Link
+                to='/chat'
                 className='text-2xl text-ascent-2 relative'
                 >
                     <BiSolidMessageDetail/>
-                    <span className='absolute bottom-3 right-0 bg-[#f64949fe]
-                    text-white rounded-full text-xs h-[15px] w-[15px] flex
-                    items-center justify-center'>0</span>
-                </button>
+                    {/*{notifications?.text?.length > 0 && 
+                        <span className='absolute bottom-3 right-0 bg-[#f64949fe]
+                        text-white rounded-full text-xs h-[15px] w-[15px] flex
+                        items-center justify-center'>{notifications?.text?.length}</span>
+                    }*/}
+                </Link>
                 {/* CREATE POST BUTTON */}
                 <button 
                 onClick={()=>setPostTab(!postTab)}

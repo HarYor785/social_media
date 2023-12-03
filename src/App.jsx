@@ -6,6 +6,7 @@ import Home from "./pages/Home"
 import Profile from "./pages/Profile"
 import Account from "./pages/Account"
 import ForgotPassword from "./pages/ForgotPassword"
+import Chat from "./pages/Chat"
 
 
 const Layout = ()=>{
@@ -24,6 +25,7 @@ function App() {
         <Route element={<Layout/>}>
             <Route path="/" element={<Home/>}/>
             <Route path="/profile/:id?" element={<Profile/>}/>
+            <Route path="/chat" element={<Chat/>}/>
         </Route>
 
         <Route path="/auth/account" element={<Account/>}/>
