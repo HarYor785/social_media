@@ -102,11 +102,10 @@ const Chat = ()=>{
     useEffect(()=>{
         socket.current.on("receive-message", (data)=>{
             setReceiveMessage(data)
-            console.log("")
 
-            toast.success(`You have new message`, {
-                autoClose: 5000
-            })
+            // toast.success(`You have new message`, {
+            //     autoClose: 5000
+            // })
         })
     },[])
 
@@ -352,7 +351,7 @@ const Chat = ()=>{
                                             </div>
                                             {/* CONVERSATION CARD */}
                                             <div className="w-full flex flex-col items-start gap-4 py-2">
-                                                {Array.isArray(chats) && chats?.map((chat, index)=>(
+                                                {chats?.map((chat, index)=>(
                                                     <Conversation 
                                                     user={user}
                                                     handleClick={()=>handleChatClick(chat)}

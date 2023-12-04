@@ -78,7 +78,6 @@ const ChatsCard = ({chat,
         setMessages([...messages, res])
         setNewMessage("")
         handleGetChats()
-
     }
 
     // Recieve message from socket.io

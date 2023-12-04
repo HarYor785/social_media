@@ -3,10 +3,8 @@ import { setPosts } from "../redux/postSlice"
 
 
 const API_URL = "http://localhost:8000/api-v1"
-
-//https://mernstack-socialmedia-qxk4.onrender.com/api-v1"
-
-//http://localhost:8000/api-v1
+//https://mernstack-socialmedia-qxk4.onrender.com/api-v1
+//
 
 export const API = axios.create({
     baseURL: API_URL,
